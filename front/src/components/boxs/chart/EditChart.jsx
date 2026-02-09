@@ -692,12 +692,20 @@ class EditChart extends Component {
                     <option value="last-hour">
                       <Text id="dashboard.boxes.chart.lastHour" />
                     </option>
+                    <option value="last-four-hours">
+                      <Text id="dashboard.boxes.chart.lastFourHours" />
+                    </option>
                     <option value="last-twelve-hours">
                       <Text id="dashboard.boxes.chart.lastTwelveHours" />
                     </option>
                     <option value="last-day">
                       <Text id="dashboard.boxes.chart.lastDay" />
                     </option>
+                    {props.box.chart_type !== 'timeline' && (
+                      <option value="last-three-days">
+                        <Text id="dashboard.boxes.chart.lastThreeDays" />
+                      </option>
+                    )}
                     {props.box.chart_type !== 'timeline' && (
                       <option value="last-week">
                         <Text id="dashboard.boxes.chart.lastSevenDays" />

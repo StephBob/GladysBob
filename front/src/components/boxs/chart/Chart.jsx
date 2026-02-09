@@ -13,8 +13,10 @@ import { getDeviceName } from '../../../utils/device';
 import { formatHttpError } from '../../../utils/formatErrors';
 
 const ONE_HOUR_IN_MINUTES = 60;
+const FOUR_HOURS_IN_MINUTES = 4 * 60;
 const TWELVE_HOURS_IN_MINUTES = 12 * 60;
 const ONE_DAY_IN_MINUTES = 24 * 60;
+const THREE_DAYS_IN_MINUTES = 3 * 24 * 60;
 const SEVEN_DAYS_IN_MINUTES = 7 * 24 * 60;
 const THIRTY_DAYS_IN_MINUTES = 30 * 24 * 60;
 const THREE_MONTHS_IN_MINUTES = 3 * 30 * 24 * 60;
@@ -22,8 +24,10 @@ const ONE_YEAR_IN_MINUTES = 365 * 24 * 60;
 
 const intervalByName = {
   'last-hour': ONE_HOUR_IN_MINUTES,
+  'last-four-hours': FOUR_HOURS_IN_MINUTES,
   'last-twelve-hours': TWELVE_HOURS_IN_MINUTES,
   'last-day': ONE_DAY_IN_MINUTES,
+  'last-three-days': THREE_DAYS_IN_MINUTES,
   'last-week': SEVEN_DAYS_IN_MINUTES,
   'last-month': THIRTY_DAYS_IN_MINUTES,
   'last-three-months': THREE_MONTHS_IN_MINUTES,
@@ -116,6 +120,14 @@ class Chartbox extends Component {
     });
     this.getData();
   };
+  switchToLastFourHourView = async e => {
+    e.preventDefault();
+    await this.setState({
+      interval: FOUR_HOURS_IN_MINUTES,
+      dropdown: false
+    });
+    this.getData();
+  };
   switchToLastTwelveHourView = async e => {
     e.preventDefault();
     await this.setState({
@@ -128,6 +140,14 @@ class Chartbox extends Component {
     e.preventDefault();
     await this.setState({
       interval: ONE_DAY_IN_MINUTES,
+      dropdown: false
+    });
+    this.getData();
+  };
+  switchTo3DaysView = async e => {
+    e.preventDefault();
+    await this.setState({
+      interval: THREE_DAYS_IN_MINUTES,
       dropdown: false
     });
     this.getData();
@@ -459,8 +479,10 @@ class Chartbox extends Component {
                 <div class="dropdown" ref={this.dropdownRef}>
                   <a class="dropdown-toggle text-muted text-nowrap" onClick={this.toggleDropdown}>
                     {interval === ONE_HOUR_IN_MINUTES && <Text id="dashboard.boxes.chart.lastHour" />}
+                    {interval === FOUR_HOURS_IN_MINUTES && <Text id="dashboard.boxes.chart.lastFourHours" />}
                     {interval === TWELVE_HOURS_IN_MINUTES && <Text id="dashboard.boxes.chart.lastTwelveHours" />}
                     {interval === ONE_DAY_IN_MINUTES && <Text id="dashboard.boxes.chart.lastDay" />}
+                    {interval === THREE_DAYS_IN_MINUTES && <Text id="dashboard.boxes.chart.lastThreeDays" />}
                     {interval === SEVEN_DAYS_IN_MINUTES && <Text id="dashboard.boxes.chart.lastSevenDays" />}
                     {interval === THIRTY_DAYS_IN_MINUTES && <Text id="dashboard.boxes.chart.lastThirtyDays" />}
                     {interval === THREE_MONTHS_IN_MINUTES && <Text id="dashboard.boxes.chart.lastThreeMonths" />}
@@ -481,6 +503,14 @@ class Chartbox extends Component {
                     </a>
                     <a
                       class={cx(style.dropdownItemChart, {
+                        [style.active]: interval === FOUR_HOURS_IN_MINUTES
+                      })}
+                      onClick={this.switchToLastFourHourView}
+                    >
+                      <Text id="dashboard.boxes.chart.lastFourHours" />
+                    </a>
+                    <a
+                      class={cx(style.dropdownItemChart, {
                         [style.active]: interval === TWELVE_HOURS_IN_MINUTES
                       })}
                       onClick={this.switchToLastTwelveHourView}
@@ -495,6 +525,16 @@ class Chartbox extends Component {
                     >
                       <Text id="dashboard.boxes.chart.lastDay" />
                     </a>
+                    {props.box.chart_type !== 'timeline' && (
+                      <a
+                        className={cx(style.dropdownItemChart, {
+                          [style.active]: interval === THREE_DAYS_IN_MINUTES
+                        })}
+                        onClick={this.switchTo3DaysView}
+                      >
+                        <Text id="dashboard.boxes.chart.lastThreeDays" />
+                      </a>
+                    )}
                     {props.box.chart_type !== 'timeline' && (
                       <a
                         className={cx(style.dropdownItemChart, {

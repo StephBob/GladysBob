@@ -7,8 +7,10 @@ const noRoom = {
 };
 
 const ONE_HOUR_IN_MINUTES = 60;
+const FOUR_HOURS_IN_MINUTES = 4 * 60;
 const TWELVE_HOURS_IN_MINUTES = 12 * 60;
 const ONE_DAY_IN_MINUTES = 24 * 60;
+const THREE_DAYS_IN_MINUTES = 3 * 24 * 60;
 const SEVEN_DAYS_IN_MINUTES = 7 * 24 * 60;
 const THIRTY_DAYS_IN_MINUTES = 30 * 24 * 60;
 const THREE_MONTHS_IN_MINUTES = 3 * 30 * 24 * 60;
@@ -16,8 +18,10 @@ const ONE_YEAR_IN_MINUTES = 365 * 24 * 60;
 
 const intervalByName = {
   'last-hour': ONE_HOUR_IN_MINUTES,
+  'last-four-hours': FOUR_HOURS_IN_MINUTES,
   'last-twelve-hours': TWELVE_HOURS_IN_MINUTES,
   'last-day': ONE_DAY_IN_MINUTES,
+  'last-three-days': THREE_DAYS_IN_MINUTES,
   'last-week': SEVEN_DAYS_IN_MINUTES,
   'last-month': THIRTY_DAYS_IN_MINUTES,
   'last-three-months': THREE_MONTHS_IN_MINUTES,
